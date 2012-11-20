@@ -35,6 +35,12 @@ public class DataDemo extends JavaPlugin {
 		this.getCommand("message").setExecutor(executor);
 		this.getCommand("god").setExecutor(executor);
 		this.getCommand("human").setExecutor(executor);
+		this.getCommand("spider").setExecutor(executor);
+		this.getCommand("sword").setExecutor(executor);
+		this.getCommand("armor").setExecutor(executor);
+		this.getCommand("xp").setExecutor(executor);
+		this.getCommand("bed").setExecutor(executor);
+
 	}
 
 	/*
