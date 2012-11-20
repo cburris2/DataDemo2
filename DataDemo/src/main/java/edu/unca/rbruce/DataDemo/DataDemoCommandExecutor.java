@@ -60,7 +60,7 @@ public class DataDemoCommandExecutor implements CommandExecutor {
 			return true;
 
 		} else if (command.getName().equalsIgnoreCase("spider") 
-				&& sender.hasPermission("DataDemo.xp")) {
+				&& sender.hasPermission("DataDemo.spider")) {
 			Player p = (Player) sender;
 			 // player gets a spider's eye
 			p.getInventory().addItem(new ItemStack(Material.SPIDER_EYE, 4));
@@ -72,30 +72,33 @@ public class DataDemoCommandExecutor implements CommandExecutor {
 		} else if (command.getName().equalsIgnoreCase("xp")
 				&& sender.hasPermission("DataDemo.xp")) {
 			Player p = (Player)sender;
+			plugin.setMetadata(p, "xp", true, plugin);
 			//send a message to the player about how much experience is needed to level up 
 			p.sendMessage("Experience total is " + p.getTotalExperience());
-			plugin.setMetadata(p, "xp", true, plugin);
+			
 			p.getExpToLevel();
 			return true;
 		} else if (command.getName().equalsIgnoreCase("sword")
 				&& sender.hasPermission("DataDemo.sword")) {
-			Item.class.getMethods();
+			
 			Player p = (Player)sender;
+			plugin.setMetadata(p, "sword", true, plugin);
 			//give player an iron sword
 			p.setItemInHand(new ItemStack(Material.IRON_SWORD, 1));
 	        // send a message to inform player they received a sword
 			p.sendMessage(ChatColor.RED + "A sword for battle... "); 
-			plugin.setMetadata(p, "iron_sword", true, plugin);
+			
 			return true;
 
 		//playNote(Location loc, byte instrument, byte note); play sound method
 
 
 	}else if (command.getName().equalsIgnoreCase("armor")
-			&& sender.hasPermission("DataDemo.armor")) {
+			&& sender.hasPermission("DataDemo.sword")) {
 		Item.class.getMethods();
 
 		Player p = (Player)sender;
+		plugin.setMetadata(p, "sword", false, plugin);
 		PlayerInventory inventory = p.getInventory();
 		//give the player an iron set of armor 
 		inventory.addItem(new ItemStack(Material.IRON_HELMET, 1));
@@ -108,17 +111,12 @@ public class DataDemoCommandExecutor implements CommandExecutor {
 		ce.getCursor();
 		//send a message to inform player they received a set of armor
 		p.sendMessage(ChatColor.RED + "Armorset is in Inventory... ");
-		plugin.setMetadata(p, "iron_sword", false, plugin);
+		
 
 		return true;
 
 
-	}else if (args[0].equalsIgnoreCase("message")
-				&& sender.hasPermission("DataDemo.message")) {
-			this.plugin.getConfig().set("sample.message",
-					Joiner.on(' ').join(args));
-			return true;
-		} else if (command.getName().equalsIgnoreCase("bed")
+	}else if (command.getName().equalsIgnoreCase("bed")
 				&& sender.hasPermission("DataDemo.bed")) {
 			Player p = (Player)sender;
 			Location l = p.getBedSpawnLocation();

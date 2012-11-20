@@ -59,7 +59,7 @@ public class DataDemoListener implements Listener {
 						entityType.getName(), entityType.getTypeId()));
 	}
 
-	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+	/*@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void demoEvent(PlayerInteractEvent event) {
 		if (event.getAction() == Action.LEFT_CLICK_BLOCK) {
 			if ((Boolean) plugin.getMetadata(event.getPlayer(), "god", plugin)) {
@@ -74,16 +74,15 @@ public class DataDemoListener implements Listener {
 				}
 			}
 		}
-	}
+	}*/
 	
-	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-	   
+	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)   
 	   public void playerEvent(PlayerInteractEvent event){
 		        	if(event.getAction() == Action.LEFT_CLICK_BLOCK) {
 		        		if ((Boolean) plugin.getMetadata(event.getPlayer(), "sword", plugin)) {
 		        			//Player k = event.getPlayer();
 		        			//int x = event.getClickedBlock().getType().getId();
-		        			Block x = event.getPlayer().getLocation().getBlock();
+		        			Block x = event.getClickedBlock();
 		        			if (x != null){
 		        				//Material m = event.getClickedBlock().getType();
 		        				//if (m == Material.LOG){
