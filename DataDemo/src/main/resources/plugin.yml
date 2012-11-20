@@ -3,7 +3,7 @@
 main: edu.unca.rbruce.DataDemo.DataDemo
 name: ${project.name}
 version: ${project.version}
-author: SampleAuthor
+author: Charlie Burris, Dr. Rebecca Bruce
 description: ${project.description}
 commands:
   message:
@@ -18,6 +18,14 @@ commands:
     description: removes the lighting bolt power
     usage: /<command> 
     permission: DataDemo.human  
+  sword:
+    description: gives player a sword
+    usage: /<command> 
+    permission: DataDemo.sword
+  armor:
+    description: gives player a set of armor
+    usage: /<command> 
+    permission: DataDemo.armor    
 permissions:
   DataDemo.*:
     description: gives all permissions of the plugin commands
@@ -28,4 +36,14 @@ permissions:
       DataDemo.god:
         default: true
       DataDemo.human:
+        default: true
+      DataDemo.spider:
+        default: true
+      DataDemo.bed:
+        default: op
+      DataDemo.xp:
+        default: true
+      DataDemo.sword:
+        default: true
+      DataDemo.armor:
         default: true

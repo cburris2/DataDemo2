@@ -13,6 +13,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.ItemStack;
 
 /*
  * This is a sample event listener
@@ -36,6 +37,9 @@ public class DataDemoListener implements Listener {
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		plugin.setMetadata(event.getPlayer(), "god", false, plugin);
+		plugin.setMetadata(event.getPlayer(), "spider_eye", false, plugin);
+		plugin.setMetadata(event.getPlayer(), "iron_sword", false, plugin);
+		plugin.setMetadata(event.getPlayer(), "xp", false, plugin);
 		event.getPlayer().sendMessage(
 				this.plugin.getConfig().getString("sample.message"));
 
@@ -71,4 +75,35 @@ public class DataDemoListener implements Listener {
 			}
 		}
 	}
+	
+	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+	   
+	   public void playerEvent(PlayerInteractEvent event){
+		        	if(event.getAction() == Action.LEFT_CLICK_BLOCK) {
+		        		if ((Boolean) plugin.getMetadata(event.getPlayer(), "sword", plugin)) {
+		        			//Player k = event.getPlayer();
+		        			//int x = event.getClickedBlock().getType().getId();
+		        			Block x = event.getPlayer().getLocation().getBlock();
+		        			if (x != null){
+		        				//Material m = event.getClickedBlock().getType();
+		        				//if (m == Material.LOG){
+
+		        					Location loc = x.getLocation();
+		        					//loc.getWorld().createExplosion(loc, 15);
+		        					loc.getWorld().strikeLightning(loc);
+
+		        					x.setType(Material.CAKE);
+		        					event.getPlayer().sendMessage("leave my blocks alone!! muahahaha!");
+
+		        					loc.getWorld().dropItem(loc, new ItemStack(Material.HUGE_MUSHROOM_1, 4)); // drops player a huge mushroom
+
+		        					event.getPlayer().sendMessage("here's a mushroom to keep you alive");
+
+		        				}
+
+		        			}
+
+
+		        		}
+		        	}
 }

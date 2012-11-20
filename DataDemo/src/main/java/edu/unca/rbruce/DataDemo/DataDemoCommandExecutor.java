@@ -1,10 +1,16 @@
 package edu.unca.rbruce.DataDemo;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.InventoryView;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 
 import com.google.common.base.Joiner;
 
@@ -29,7 +35,7 @@ public class DataDemoCommandExecutor implements CommandExecutor {
 			String label, String[] args) {
 		if (!(sender instanceof Player)) {
 			sender.sendMessage(ChatColor.RED
-					+ "you must be logged on to use these commands");
+					+ "you do not currently have permissions to use these commands");
 			return false;
 		} else if (command.getName().equalsIgnoreCase("god")
 				&& sender.hasPermission("DataDemo.god")) {
@@ -53,7 +59,80 @@ public class DataDemoCommandExecutor implements CommandExecutor {
 					Joiner.on(' ').join(args));
 			return true;
 
-		} else {
+		} else if (command.getName().equalsIgnoreCase("spider") 
+				&& sender.hasPermission("DataDemo.xp")) {
+			Player p = (Player) sender;
+			 // player gets a spider's eye
+			p.getInventory().addItem(new ItemStack(Material.SPIDER_EYE, 4));
+			plugin.setMetadata(p, "spider_eye", true, plugin);
+			return true;
+			// the stored message now always begins with
+			// the word "message"--do you know how to easily
+			// fix that problem?
+		} else if (command.getName().equalsIgnoreCase("xp")
+				&& sender.hasPermission("DataDemo.xp")) {
+			Player p = (Player)sender;
+			//send a message to the player about how much experience is needed to level up 
+			p.sendMessage("Experience total is " + p.getTotalExperience());
+			plugin.setMetadata(p, "xp", true, plugin);
+			p.getExpToLevel();
+			return true;
+		} else if (command.getName().equalsIgnoreCase("sword")
+				&& sender.hasPermission("DataDemo.sword")) {
+			Item.class.getMethods();
+			Player p = (Player)sender;
+			//give player an iron sword
+			p.setItemInHand(new ItemStack(Material.IRON_SWORD, 1));
+	        // send a message to inform player they received a sword
+			p.sendMessage(ChatColor.RED + "A sword for battle... "); 
+			plugin.setMetadata(p, "iron_sword", true, plugin);
+			return true;
+
+		//playNote(Location loc, byte instrument, byte note); play sound method
+
+
+	}else if (command.getName().equalsIgnoreCase("armor")
+			&& sender.hasPermission("DataDemo.armor")) {
+		Item.class.getMethods();
+
+		Player p = (Player)sender;
+		PlayerInventory inventory = p.getInventory();
+		//give the player an iron set of armor 
+		inventory.addItem(new ItemStack(Material.IRON_HELMET, 1));
+		inventory.addItem(new ItemStack(Material.IRON_CHESTPLATE, 1));
+		inventory.addItem(new ItemStack(Material.IRON_LEGGINGS, 1));
+		inventory.addItem(new ItemStack(Material.IRON_HELMET, 1));
+
+
+		InventoryView ce = p.openInventory(inventory);
+		ce.getCursor();
+		//send a message to inform player they received a set of armor
+		p.sendMessage(ChatColor.RED + "Armorset is in Inventory... ");
+		plugin.setMetadata(p, "iron_sword", false, plugin);
+
+		return true;
+
+
+	}else if (args[0].equalsIgnoreCase("message")
+				&& sender.hasPermission("DataDemo.message")) {
+			this.plugin.getConfig().set("sample.message",
+					Joiner.on(' ').join(args));
+			return true;
+		} else if (command.getName().equalsIgnoreCase("bed")
+				&& sender.hasPermission("DataDemo.bed")) {
+			Player p = (Player)sender;
+			Location l = p.getBedSpawnLocation();
+			p.teleport(l);
+			p.sendMessage("It's Bedtime");
+			plugin.setMetadata(p, "bed", true, plugin);
+			return true;
+		}
+		
+		
+		
+		
+		
+		else {
 			return false;
 		}
 	}
